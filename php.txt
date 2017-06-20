@@ -1,0 +1,48 @@
+function connect_SQL() {
+$host = "compsci.synology.me:1433";
+$username = "testing";
+$password = "root";
+$DB = "testing"
+$con = mysqli_connect($host,$username,$password,$DB);
+if (!$con) {
+    die("Connection failed: " . $con->connect_error);
+return $con;
+}
+ 
+function disconnect_SQL($con) {
+mysqli_close($con);
+}
+
+function login($username, $password) {
+$con = connect_SQL();
+$sql = "SELECT username, password FROM users";
+$result = mysqli_query($con, $sql);
+disconnect_SQL($con);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+      if ($row["username"] === $username && $row["password"] === $password) {
+        return true;
+        }
+    }
+}
+return false;
+}
+
+function register($fName,$lName,$username,$email,$password) {
+$con = connect_SQL();
+$sql = "SELECT username FROM users";
+$result = mysqli_query($con, $sql);
+disconnect_SQL($con);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+      if($row["username"] === $username){return false;}
+    }
+}
+$con = connect_SQL();
+$stmt = $conn->prepare("INSERT INTO users (name, username, email, password) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $name, $username, $email, $password);
+disconnect_SQL($con);
+$name = $fName + " " + $lName;
+$stmt->execute();
+return true;
+}
