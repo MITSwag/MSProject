@@ -1,5 +1,5 @@
 function connect_SQL() {
-$host = "compsci.synology.me:1433";
+$host = "compsci.synology.me:3306";
 $username = "testing";
 $password = "root";
 $DB = "testing"
