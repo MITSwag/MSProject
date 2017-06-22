@@ -1,58 +1,6 @@
 <?php
-function connect_SQL()
-{
-    $host = "compsci.synology.me:3306";
-    $username = "testing";
-    $password = "root";
-    $DB = "testing";
-    $con = mysqli_connect($host, $username, $password, $DB);
-    if (!$con) {
-        die("Connection failed: " . $con->connect_error);
-        return $con;
-    }
-}
-
-function disconnect_SQL($con)
-{
-    mysqli_close($con);
-}
-
-function login($username, $password)
-{
-    $con = connect_SQL();
-    $sql = "SELECT username, password FROM users";
-    $result = mysqli_query($con, $sql);
-    disconnect_SQL($con);
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($row["username"] === $username && $row["password"] === $password) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-function register($username, $email, $password)
-{
-    $con = connect_SQL();
-    $sql = "SELECT username FROM users";
-    $result = mysqli_query($con, $sql);
-    disconnect_SQL($con);
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($row["username"] === $username) {
-                return false;
-            }
-        }
-    }
-    $con = connect_SQL();
-    $stmt = $con->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssss", $username, $email, $password);
-    disconnect_SQL($con);
-    $stmt->execute();
-    return true;
-}
+session_start();
+include 'accountmanager.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,7 +161,7 @@ function register($username, $email, $password)
         }
         .panel-login>.panel-heading .login {
             padding: 20px 30px;
-            border-bottom-leftt-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
         .panel-login>.panel-heading .register {
             padding: 20px 30px;
@@ -330,10 +278,10 @@ function register($username, $email, $password)
                             <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                                 <h2>LOGIN</h2>
                                 <div class="form-group">
-                                    <input type="text" name="login-username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="login-password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="col-xs-6 form-group pull-left checkbox">
                                     <input id="checkbox1" type="checkbox" name="remember">
@@ -343,20 +291,11 @@ function register($username, $email, $password)
                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                 </div>
                                 <?php
-                                // define variables and set to empty values
                                 if(isset($_POST["login-submit"])) {
-                                    $loguser=getValidation($_POST["username"]);
-                                    $logpassword=getValidation($_POST["password"]);
+                                    $loguser=Validate($_POST["username"]);
+                                    $logpassword=Validate($_POST["password"]);
                                     if((login($loguser,$logpassword))==true){
-                                        header('Location: /index.php');
-                                    }
-
-                                    function getValidation($data)
-                                    {
-                                        $data = trim($data);
-                                        $data = stripslashes($data);
-                                        $data = htmlspecialchars($data);
-                                        return $data;
+                                        echo "Works";
                                     }
                                 }
                                 ?>
@@ -366,6 +305,12 @@ function register($username, $email, $password)
                             </form>
                             <form id="register-form" action="#" method="post" role="form" style="display: none;">
                                 <h2>REGISTER</h2>
+                                <div class="form-group pull-left">
+                                    <input type="text" name="fName" id="fName" tabindex="1" class="form-control" placeholder="First Name" value="">
+                                </div>
+                                <div class="form-group pull-right">
+                                    <input type="text" name="lName" id="lName" tabindex="1" class="form-control" placeholder="Last Name" value="">
+                                </div>
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
@@ -386,19 +331,19 @@ function register($username, $email, $password)
                                         <?php
                                         if(isset($_POST["register-submit"])) {
                                             // define variables and set to empty values
-                                            $loguser=Validate($_POST["username"]);
-                                            $logemail=Validate($_POST["password"]);
-                                            $logpassword=Validate($_POST["password"]);
-                                            if((register($loguser, $logemail, $logpassword))==true){
-                                                header('Location: /index.php');
+                                            if($_POST["password"] == $_POST["confirm-password"])
+                                                {
+                                                $logfname=Validate($_POST["fName"]);
+                                                $loglname=Validate($_POST{"lName"});
+                                                $loguser=Validate($_POST["username"]);
+                                                $logemail=Validate($_POST["email"]);
+                                                $logpassword=Validate($_POST["password"]);
+                                                if((register($logfname,$loglname,$loguser, $logemail, $logpassword))==true){
+                                                    header('Location: /index.php');
+                                                }
                                             }
-                                            function Validate($data)
-                                            {
-                                                $data = trim($data);
-                                                $data = stripslashes($data);
-                                                $data = htmlspecialchars($data);
-                                                return $data;
-                                            }
+                                            
+                                            
                                         }
                                         ?>
                                     </div>
