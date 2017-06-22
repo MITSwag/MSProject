@@ -330,10 +330,10 @@ function register($username, $email, $password)
                             <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                                 <h2>LOGIN</h2>
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                    <input type="text" name="login-username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    <input type="password" name="login-password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="col-xs-6 form-group pull-left checkbox">
                                     <input id="checkbox1" type="checkbox" name="remember">
@@ -345,7 +345,9 @@ function register($username, $email, $password)
                                 <?php
                                 // define variables and set to empty values
                                 if(isset($_POST["login-submit"])) {
-                                    if((login(getValidation($_POST["username"]), getValidation($_POST["password"])))==true){
+                                    $loguser=getValidation($_POST["username"]);
+                                    $logpassword=getValidation($_POST["password"]);
+                                    if((login($loguser,$logpassword))==true){
                                         header('Location: /index.php');
                                     }
 
@@ -384,7 +386,10 @@ function register($username, $email, $password)
                                         <?php
                                         if(isset($_POST["register-submit"])) {
                                             // define variables and set to empty values
-                                            if((register(getValidation($_POST["username"]),getValidation($_POST["email"]),getValidation($_POST["password"])))==true){
+                                            $loguser=Validate($_POST["username"]);
+                                            $logemail=Validate($_POST["password"]);
+                                            $logpassword=Validate($_POST["password"]);
+                                            if((register($loguser, $logemail, $logpassword))==true){
                                                 header('Location: /index.php');
                                             }
                                             function Validate($data)
