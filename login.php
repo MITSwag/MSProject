@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'accountmanager.php';
 ?>
 <!DOCTYPE html>
@@ -275,7 +274,7 @@ include 'accountmanager.php';
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
+                            <form id="login-form" method="post" role="form" style="display: block;">
                                 <h2>LOGIN</h2>
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -290,15 +289,6 @@ include 'accountmanager.php';
                                 <div class="col-xs-6 form-group pull-right">
                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                 </div>
-                                <?php
-                                if(isset($_POST["login-submit"])) {
-                                    $loguser=Validate($_POST["username"]);
-                                    $logpassword=Validate($_POST["password"]);
-                                    if((login($loguser,$logpassword))==true){
-                                        echo "Works";
-                                    }
-                                }
-                                ?>
                                 <div class="form-group pull-left">
                                     <a nohref onclick="formSwitch();return false;" id="register-link">Don't have an account? Create one.</a>
                                 </div>
@@ -328,24 +318,6 @@ include 'accountmanager.php';
                                         <div class="col-sm-6 col-sm-offset-3">
                                             <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
                                         </div>
-                                        <?php
-                                        if(isset($_POST["register-submit"])) {
-                                            // define variables and set to empty values
-                                            if($_POST["password"] == $_POST["confirm-password"])
-                                                {
-                                                $logfname=Validate($_POST["fName"]);
-                                                $loglname=Validate($_POST{"lName"});
-                                                $loguser=Validate($_POST["username"]);
-                                                $logemail=Validate($_POST["email"]);
-                                                $logpassword=Validate($_POST["password"]);
-                                                if((register($logfname,$loglname,$loguser, $logemail, $logpassword))==true){
-                                                    header('Location: /index.php');
-                                                }
-                                            }
-                                            
-                                            
-                                        }
-                                        ?>
                                     </div>
                                 </div>
                                 <div class="form-group pull-left">

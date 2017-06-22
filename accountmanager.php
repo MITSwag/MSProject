@@ -49,11 +49,32 @@ function register($fName,$lName,$username,$email,$password) {
     return true;
 }
 
-                                            function Validate($data)
-                                            {
-                                                $data = trim($data);
-                                                $data = stripslashes($data);
-                                                $data = htmlspecialchars($data);
-                                                return $data;
-                                            }
+function Validate($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+if(isset($_POST["login-submit"])) {
+    $loguser=Validate($_POST["username"]);
+    $logpassword=Validate($_POST["password"]);
+    if((login($loguser,$logpassword))==true){
+            header('Location: /MSProject-master/dashboard.php');
+    }
+}
+
+if(isset($_POST["register-submit"])) {
+    if($_POST["password"] == $_POST["confirm-password"]) {
+        $logfname=Validate($_POST["fName"]);
+        $loglname=Validate($_POST{"lName"});
+        $loguser=Validate($_POST["username"]);
+        $logemail=Validate($_POST["email"]);
+        $logpassword=Validate($_POST["password"]);
+        if((register($logfname,$loglname,$loguser, $logemail, $logpassword))==true){
+            header('Location: /MSProject-master/login.php');
+        }
+    }
+}
 ?>
