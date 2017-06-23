@@ -10,7 +10,7 @@ include 'accountmanager.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Age - Start Bootstrap Theme</title>
+    <title>MiSi</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -261,7 +261,7 @@ include 'accountmanager.php';
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="index.php">Start Bootstrap</a>
+            <a class="navbar-brand page-scroll" href="index.php">MiSi</a>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -287,7 +287,7 @@ include 'accountmanager.php';
                                     <label for="checkbox1">Remember Me</label>
                                 </div>
                                 <div class="col-xs-6 form-group pull-right">
-                                   <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                 </div>
                                 <div class="form-group pull-left">
                                     <a nohref onclick="formSwitch();return false;" id="register-link">Don't have an account? Create one.</a>
