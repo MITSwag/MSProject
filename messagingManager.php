@@ -1,11 +1,10 @@
-​
 <?php
 function connect_SQL()
 {
 $host = "localhost";
 $username = "root";
 $password = "root";
-$DB = "MSProject-master";
+$DB = "Messages";
 $port = "3306";
 $con = mysqli_connect($host, $username, $password, $DB, $port);
 if (!$con) {
@@ -20,23 +19,24 @@ mysqli_close($con);
 function send($chat, $user, $message)
 {
 $con = connect_SQL();
-$sql = "INSERT INTO " . $chat . " (User, Message) VALUES (\"".$user."\", \"".$message."\"")";//Can you add insert a timestamp
+$sql = "INSERT INTO " . $chat . " (User, Message, Timestamp) VALUES (\"".$user."\", \"".$message."\", \"".date('Y-m-d H:i:s','".time()."')"\")";
 mysqli_query($con, $sql);
 return true;
 }
 function enterChat($chat) {
 $con = connect_SQL();
-$sql = "SELECT User, Message FROM " . $chat;//Add a get timestamp
+$sql = "SELECT * FROM " . $chat;
 $result = mysqli_query($con, $sql);
 disconnect_SQL($con);
 $stream = ";";
 if (mysqli_num_rows($result) > 0) {
 while($row = mysqli_fetch_assoc($result)) {
 $stream = ";" . $row[User] . "," . $row[Message] . $stream;
-show($stream);
+return $stream;
 }
 function updateChat($chat) {
-//We'll haven't worked out this method yet
+$stream = enterChat($chat);
+
 }
 function show($stream) {
 $count = 0;
