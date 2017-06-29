@@ -71,6 +71,8 @@ function show($stream) {
 }
 function newChat($chatName)
 {
+  $con = connect_SQL();
+  $sql = "".$chatName." (Index int, User varchar(20), Message varchar(1000), Time int)";
 }
 function deleteChat($chatName)
 {
