@@ -1,22 +1,6 @@
 <?php
 include "accountManager.php";
-function connect_SQL()
-{
-$host = "localhost";
-$username = "root";
-$password = "root";
-$DB = "Messages";
-$port = "3306";
-$con = mysqli_connect($host, $username, $password, $DB, $port);
-if (!$con) {
-die("Connection failed: " . $con->connect_error);
-}
-return $con;
-}
-function disconnect_SQL($con)
-{
-mysqli_close($con);
-}
+include "chatManager.php";
 function send($chat, $user, $message)
 {
 $con = connect_SQL();
@@ -68,14 +52,6 @@ function show($stream) {
     echo "test";
     array_splice($stream, sizeOf($stream)-1);
   }
-}
-function newChat($chatName)
-{
-  $con = connect_SQL();
-  $sql = "".$chatName." (Index int, User varchar(20), Message varchar(1000), Time int)";
-}
-function deleteChat($chatName)
-{
 }
 function Validate($data)
 {
