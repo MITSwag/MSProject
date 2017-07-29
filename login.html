@@ -299,7 +299,7 @@
                                             <input type="text" name="lName" id="lName" tabindex="1" class="form-control" placeholder="Last Name" value="">
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                            <input type="email" name="create-email" id="create-email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="create-password" id="create-password" tabindex="2" class="form-control" placeholder="Password">
@@ -351,8 +351,8 @@
             }
             function register() {
                 if (document.getElementById("create-password").value === document.getElementById("confirm-password").value) {
-                    var email = document.getElementById("email").value;
-                    var password = document.getElementById("password").value;
+                    var email = document.getElementById("create-email").value;
+                    var password = document.getElementById("create-password").value;
                 } else {
                     alert("does not match");
                     return;
