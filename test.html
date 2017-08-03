@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+      Hi
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+  
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDH0vwzO9Ob3GoeYU_-W_PfjOAtbv4V2R0",
+    authDomain: "misilearning.firebaseapp.com",
+    databaseURL: "https://misilearning.firebaseio.com",
+    projectId: "misilearning",
+    storageBucket: "misilearning.appspot.com",
+    messagingSenderId: "290441985709"
+  };
+  firebase.initializeApp(config);
+</script>
+
+    <script>
+        firebase.auth().createUserWithEmailAndPassword("test@gmail.com", "test").catch(function(error) {
+                    alert("error");
+                });
+                alert("Test");
+    </script>
+</html>
