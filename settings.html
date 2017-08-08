@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+   	<meta name="description" content="">
+    	<meta name="author" content="">
 
-    <title>Settings</title>
+    	<title>Settings</title>
+	</head>
 
-</head>
-
-<body>
-    <div id="sidebar">
+	<body>
+	<div id="sidebar">
 		<ul id="menu">
 			<li class="menu-item"><a nohref onclick="getView('userProfile');">User Profile</a></li>
 			<li class="menu-item"><a nohref onclick="getView('notifications');">Notifications</a></li>
 			<li class="menu-item"><a nohref onclick="getView('classSettings');">Class Settings</a></li>
 		</ul>
-    </div>
+	</div>
 	<div id="userProfile" class="view" style="display: none;">
-		
+		<form id="profileFields" onsubmit="updateProfile();">
+			<input type="image" id="profile-picture" class="pull-left
 	</div>
 	<div id="notifications" class="view" style="display: none;">
 	</div>
@@ -31,22 +31,23 @@
 	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
   	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
  	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
 	<script src="firebaseScript.js"></script>
 	<script>
 		//functions
+		var user = firebase.auth().currentUser;
 		function clearPage() {
 			var views = document.getElementsByClass('view');
 			for (var i = 0; i < views.length; i++)
 				views[i].style.display = 'none';
 		}
 		function getView(var view) {
-			clearPage();
 			document.getElementById(view).style.display = 'block';
 		}
-		function getFirstName
 	</script>
 	<script>
 		//script to run on start of page
+		var user = firebase.auth().currentUser;
 		getView('userProfile');
 	</script>
 		
